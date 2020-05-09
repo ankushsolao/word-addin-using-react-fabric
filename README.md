@@ -1,32 +1,34 @@
-# Office-Addin-TaskPane-React
+Get web application running
+Open command prompt and navigate to project directory
+Run 'npm install' in root directory
+Run 'npm start' to run the node web server
+Deploy add-in manifest
+The simplest way to deploy and test your add-in is to copy the files to a network share.
 
-This repository contains the source code used by the [Yo Office generator](https://github.com/OfficeDev/generator-office) when you create a new Office Add-in that appears in the task pane. You can also use this repository as a sample to base your own project from if you choose not to use the generator. 
+Create a folder on a network share (for example, \\MyShare\addins) and copy all the files in the Code Editor folder.
 
-## TypeScript
+Edit the element of the manifest file so that it points to the share location from step 1.
 
-This template is written using [TypeScript](http://www.typescriptlang.org/). For the JavaScript version of this template, go to [Office-Addin-TaskPane-React-JS](https://github.com/OfficeDev/Office-Addin-TaskPane-React-JS).
+Copy the manifest (manifest.xml) to a network share (for example, \\MyShare\addins).
 
-## Debugging
+Add the share location that contains the manifest as a trusted app catalog in Excel.
 
-This template supports debugging using any of the following techniques:
+a. Launch Excel and open a blank spreadsheet.
 
-- [Use a browser's developer tools](https://docs.microsoft.com/office/dev/add-ins/testing/debug-add-ins-in-office-online)
-- [Attach a debugger from the task pane](https://docs.microsoft.com/office/dev/add-ins/testing/attach-debugger-from-task-pane)
-- [Use F12 developer tools on Windows 10](https://docs.microsoft.com/office/dev/add-ins/testing/debug-add-ins-using-f12-developer-tools-on-windows-10)
+b. Choose the File tab, and then choose Options.
 
-## Questions and comments
+c. Choose Trust Center, and then choose the Trust Center Settings button.
 
-We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
+d. Choose Trusted Add-in Catalogs.
 
-Questions about Microsoft Office 365 development in general should be posted to [Stack Overflow](http://stackoverflow.com/questions/tagged/office-js+API).  If your question is about the Office JavaScript APIs, make sure it's tagged with  [office-js].
+e. In the Catalog Url box, enter the path to the network share you created in step 3, and then choose Add Catalog.
 
-## Additional resources
+f. Select the Show in Menu check box, and then choose OK. A message appears to inform you that your settings will be applied the next time you start Office.
 
-* [Office add-in documentation](https://docs.microsoft.com/office/dev/add-ins/overview/office-add-ins)
-* More Office Add-in samples at [OfficeDev on Github](https://github.com/officedev)
+Test add-in in Word
+a.  In the **Insert tab** in Excel 2016, choose **My Add-ins**. 
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+b.  In the **Office Add-ins** dialog box, choose **Shared Folder**.
 
-## Copyright
-
-Copyright (c) 2019 Microsoft Corporation. All rights reserved.
+c.  Choose **Citations Sample**>**Insert**. The add-in opens in a task pane and shows the add-in. 
+This 

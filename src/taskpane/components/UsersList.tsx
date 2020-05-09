@@ -13,7 +13,7 @@ import { HttpService } from "../services/httpservice";
 import {
     PrimaryButton, MessageBar, MessageBarType,
 } from "office-ui-fabric-react";
-//import { useBoolean } from '@uifabric/react-hooks';
+
 
 const classNames = mergeStyleSets({
     fileIconHeaderIcon: {
@@ -57,15 +57,15 @@ const controlStyles = {
 
 export interface IDetailsListDocumentsExampleState {
     columns: IColumn[];
-    items: IDocument[];
+    items: IUserDetails[];
     isModalSelection: boolean;
     isCompactMode: boolean;
     announcedMessage?: string;
-    selectedItem: IDocument,
+    selectedItem: IUserDetails,
     validationMessage: IValidation,
 }
 
-export interface IDocument {
+export interface IUserDetails {
     key: string;
     email: string;
     value: string;
@@ -83,7 +83,7 @@ export interface IValidation {
 export default class UsersList extends React.Component<{}, IDetailsListDocumentsExampleState> {
 
     private _selection: Selection;
-    private _allItems: IDocument[];
+    private _allItems: IUserDetails[];
     serv: HttpService;
     constructor(props: {}) {
         super(props);
@@ -96,7 +96,7 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                 minWidth: 50,
                 maxWidth: 60,
                 onColumnClick: this._onColumnClick,
-                onRender: (item: IDocument) => {
+                onRender: (item: IUserDetails) => {
                     return <img src={item.iconName} className={classNames.fileIconImg} />;
                 },
             },
@@ -129,7 +129,7 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                 sortDescendingAriaLabel: 'Sorted Z to A',
                 onColumnClick: this._onColumnClick,
                 data: 'string',
-                onRender: (item: IDocument) => {
+                onRender: (item: IUserDetails) => {
                     return <span>{item.first_name}</span>;
                 },
                 isPadded: true,
@@ -148,7 +148,7 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                 isCollapsible: true,
                 data: 'string',
                 onColumnClick: this._onColumnClick,
-                onRender: (item: IDocument) => {
+                onRender: (item: IUserDetails) => {
                     return <span>{item.last_name}</span>;
                 },
                 isPadded: true,
@@ -182,8 +182,9 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                 {(items) ? (
                     <Fabric>
                         <div className={classNames.controlWrapper}>
-                            <TextField label="Filter by Email:" onChange={this._onChangeText} styles={controlStyles} />
-                        </div>
+                            <TextField label="Filter by Email:" onChange={this._onChangeText} styles={controlStyles} />                        </div>
+                        {/* <DefaultButton text="Logout" onClick={this.handleValidate} /> */}
+
                         <div>
                             <PrimaryButton text="Validate" allowDisabledFocus onClick={this.handleValidate} />
                         </div>
@@ -266,14 +267,21 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                     context.sync()
                         .then(function () {
                             documentEmail = myRows.items[1].values[0][0];
-                            context.document.body.insertParagraph("Document Email:- " + documentEmail, Word.InsertLocation.end);
-                            context.document.body.insertParagraph("Selected Email:- " + selectedEmail, Word.InsertLocation.end);
-                            context.sync();                          
+                            if (documentEmail === selectedEmail) {
+                                const paragraph = context.document.body.insertParagraph("No Changes Found", Word.InsertLocation.end);
+                                paragraph.font.color = "green";
+                                paragraph.font.bold = true;
+                                paragraph.font.size = 14;
+
+                            } else {
+                                const paragraph = context.document.body.insertParagraph("Data changed ", Word.InsertLocation.end);
+                                paragraph.font.color = "red";
+                                paragraph.font.bold = true;
+                                paragraph.font.size = 14;
+                            }
+                            context.sync();
                         })
                 });
-            if (documentEmail === selectedEmail) {
-                context.document.body.insertParagraph(selectedEmail, Word.InsertLocation.end);
-            }        
 
             //  if(selectedEmail === documentEmail){
             //     this.setState({
@@ -328,7 +336,7 @@ function _copyAndSort<T>(items: T[], columnKey: string, isSortedDescending?: boo
 }
 
 function getUsersListData(data) {
-    const items: IDocument[] = [];
+    const items: IUserDetails[] = [];
     data.map((v, i) => (
         items.push({
             key: i.toString(),

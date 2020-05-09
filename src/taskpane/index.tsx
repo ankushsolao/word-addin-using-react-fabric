@@ -1,10 +1,11 @@
 import "office-ui-fabric-react/dist/css/fabric.min.css";
-//import App from "./components/App";
-import Login from "./components/Login";
+import App from "./components/App";
+//import Login from "./components/Login";
 //import UsersList from "./components/UsersList";
 import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+//import { Redirect, Route, Switch } from "react-router";
 //import { HashRouter as Router,  Switch, Route } from "react-router-dom";
 //import UsersList from './components/UsersList';
 /* global AppCpntainer, Component, document, Office, module, require */
@@ -31,11 +32,11 @@ const render = Component => {
 /* Render application after Office initializes */
 Office.initialize = () => {
   isOfficeInitialized = true;
-  render(Login);
+  render(App);
 };
 
 /* Initial render showing a progress bar */
-render(Login);
+render(App);
 
 if ((module as any).hot) {
   (module as any).hot.accept("./components/App", () => {
