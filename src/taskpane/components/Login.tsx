@@ -11,9 +11,6 @@ const classNames = mergeStyleSets({
         color: "Red",
     },
 });
-
-
-//const router = new HistoryRouter()
 export interface State {
     email: any,
     password: any,
@@ -50,7 +47,6 @@ export default class Login extends React.Component<any, State> {
     validateForm = () => {
         let isDataValid = true;
         let errorsMessage = this.state.errors;
-        console.log(this.state.email, this.state.password);
         if (!this.state.email) {
             errorsMessage.username = "User Name is required ";
             isDataValid = false;
@@ -73,31 +69,26 @@ export default class Login extends React.Component<any, State> {
     handleLogin = async () => {
         if (this.validateForm()) {
             this.serv.loginService({ email: this.state.email, password: this.state.password }).then(resp => resp.data).then(data => {
-                console.log("Login :- ", data);
+                console.log(data);
                 this.setState({ errors: { loginSuccess: "", username: "", password: "" }, isLogin: true });
+                return Word.run(async context => {
+                    const paragraph = context.document.body.insertParagraph("Welcome " + this.state.email, Word.InsertLocation.end);
+                    paragraph.font.color = "blue";
+                    paragraph.font.bold = true;
+                    await context.sync();
+                });
             })
                 .catch(error =>
                     this.setState({
                         errors: { loginSuccess: error + " / Invalid Credential", username: "", password: "" },
                         isLogin: false,
                     }));
-
-            return Word.run(async context => {
-                /**
-                 * Insert your Word code here
-                 */
-
-                // insert a paragraph at the end of the document.
-                const paragraph = context.document.body.insertParagraph("Welcome " + this.state.email, Word.InsertLocation.end);
-
-                // change the paragraph color to blue.
-                paragraph.font.color = "red";
-                paragraph.font.bold = true;
-
-                await context.sync();
-            });
         }
     };
+
+    handleLogout = async () => {
+        this.setState({ isLogin: false });
+    }
 
     handleEmailId = (evt: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ email: evt.target.value });
@@ -126,8 +117,11 @@ export default class Login extends React.Component<any, State> {
                             </div>
                         </div>
                     </div>
-                ) : <UsersList />
-                } 
+                ) : (<>
+                    <PrimaryButton text="Logout" allowDisabledFocus onClick={this.handleLogout} />
+                    <UsersList />
+                </>)
+                }
             </>
         );
     }

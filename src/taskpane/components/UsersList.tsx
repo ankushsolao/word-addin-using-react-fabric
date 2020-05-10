@@ -267,6 +267,7 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                     context.sync()
                         .then(function () {
                             documentEmail = myRows.items[1].values[0][0];
+
                             if (documentEmail === selectedEmail) {
                                 const paragraph = context.document.body.insertParagraph("No Changes Found", Word.InsertLocation.end);
                                 paragraph.font.color = "green";
@@ -282,23 +283,22 @@ export default class UsersList extends React.Component<{}, IDetailsListDocuments
                             context.sync();
                         })
                 });
-
-            //  if(selectedEmail === documentEmail){
-            //     this.setState({
-            //         validationMessage: {
-            //             isSuccess: true,
-            //             message: "No Changes Found ",
-            //         }
-            //     });
-            //  }
-            //  else{
-            //     this.setState({
-            //         validationMessage: {
-            //             isSuccess: false,
-            //             message: "Data changed ",
-            //         }
-            //     });
-            //  }
+            if (selectedEmail === documentEmail) {
+                this.setState({
+                    validationMessage: {
+                        isSuccess: true,
+                        message: "No Changes Found ",
+                    }
+                });
+            }
+            else {
+                this.setState({
+                    validationMessage: {
+                        isSuccess: false,
+                        message: "Data changed ",
+                    }
+                });
+            }
             await context.sync();
         });
     }

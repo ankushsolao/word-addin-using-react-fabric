@@ -1,6 +1,6 @@
 Get web application running
 Open command prompt and navigate to project directory
-Run 'npm install' in root directory
+1.Run 'npm install' in root directory
 Run 'npm start' to run the node web server
 Deploy add-in manifest
 The simplest way to deploy and test your add-in is to copy the files to a network share.

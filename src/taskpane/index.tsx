@@ -1,21 +1,9 @@
 import "office-ui-fabric-react/dist/css/fabric.min.css";
 import App from "./components/App";
-//import Login from "./components/Login";
-//import UsersList from "./components/UsersList";
 import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-//import { Redirect, Route, Switch } from "react-router";
-//import { HashRouter as Router,  Switch, Route } from "react-router-dom";
-//import UsersList from './components/UsersList';
-/* global AppCpntainer, Component, document, Office, module, require */
-{/* <Router>
-  <Switch>
-    <Route exact path="/UsersList" component={UsersList} >
 
-    </Route>
-  </Switch>
-</Router> */}
 initializeIcons();
 
 let isOfficeInitialized = false;
