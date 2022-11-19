@@ -80,7 +80,7 @@
     "typescript": "^3.8.3",
     "valuelink": "^2.0.9",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.10.3"
   },
   "prettier": "office-addin-prettier-config"
